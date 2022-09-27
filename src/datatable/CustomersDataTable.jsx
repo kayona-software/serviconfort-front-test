@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Row, Box, Col, Button, DataTable,LoadingSpinner } from 'adminlte-2-react';
+import { Row, Box, Col, Button, DataTable, LoadingSpinner } from 'adminlte-2-react';
 import axios from 'axios';
 
 const DataTables = () => {

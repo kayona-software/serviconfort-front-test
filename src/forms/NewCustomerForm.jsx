@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
-import '../App.css';
+import '../Styles.css';
 
 const {
   Text, Select, Select2
@@ -17,7 +17,7 @@ const NewCustomerForm = () =>
     <Row>
       <Col md={3}>
         <Box type="info">
-          <div className='label-text'>Código de Cliente: <span className='code'>CD0001</span></div>
+          <div className='label-text'>Código de Cliente: <span className='code'>CD003900</span></div>
         </Box>
       </Col>
       <Col md={9}>
@@ -70,4 +70,3 @@ const NewCustomerForm = () =>
   );
   
   export default NewCustomerForm;
-  

@@ -3,7 +3,7 @@ import AdminLTE, { Sidebar, Footer } from 'adminlte-2-react';
 import Sales from './sales';
 import Products from './products';
 import Customers from './customers';
-import NewCustomer from './customers/new';
+import NewCustomer from './customers/New';
 import Users from './users';
 import './App.css';
 

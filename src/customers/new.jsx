@@ -13,7 +13,7 @@ class NewCustomer extends Component {
             browserTitle="Nuevo Cliente">
         <Row>
           <Col xs={12}>
-              <NewCustomerForm />
+            <NewCustomerForm />
           </Col>
         </Row>
       </Content>);

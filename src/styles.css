@@ -1,3 +1,22 @@
 .row-spacing{
     padding-bottom:inherit;
 }
+
+.footer-center {
+    text-align: center;
+  }
+  
+.label-text{
+color:black;
+font-size: 165%;
+}
+
+.mx-2{
+margin-left: 2px;
+margin-right: 2px;
+}
+
+.code{
+color:red;
+font-weight: bold;
+}

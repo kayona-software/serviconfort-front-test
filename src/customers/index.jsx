@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Content, Row, Col, Button } from 'adminlte-2-react';
-import CustomerDataTable from '../datatable/CustomerDataTable';
+import CustomersDataTable from '../datatable/CustomersDataTable';
 import '../styles.css';
 
 class Customers extends Component {
@@ -22,7 +22,7 @@ class Customers extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <CustomerDataTable />
+            <CustomersDataTable />
           </Col>
         </Row>
       </Content>);
