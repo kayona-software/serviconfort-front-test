@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Content, Row, Col, Button } from 'adminlte-2-react';
 import UsersDataTable from '../datatable/UsersDataTable';
-import '../styles.css';
+import '../Styles.css';
 
 class Users extends Component {
     state = {}
