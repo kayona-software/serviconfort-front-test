@@ -1,21 +1,39 @@
 import React, {useState, useEffect} from 'react';
 import { Row, Box, Col, Button, DataTable, LoadingSpinner } from 'adminlte-2-react';
+import AcceptDeclineModal from '../utils/AcceptDeclineModal';
 import axios from 'axios';
 
 const DataTables = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoaded] = useState([true]);
-  useEffect(()=>{
-  axios.get(`${process.env.REACT_APP_API_ENDPOINT}customers`)
+  const [showModal, setShowModal] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState(false);
+
+  const deleteCustomer = (id)=>{
+    setShowModal(false)
+    setIsLoaded(true)
+    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}customers/${id}`)
       .then(res=>{
-          setData(res.data)
-          setIsLoaded(false)  
+        setIsLoaded(false)
+        let newData = data.filter(dat=>dat.id!==id)
+        setData(newData)
       })
       .catch(err=>{
-          console.log("Error")
-          setData([])
-          setIsLoaded(false)
+        console.log(`Error al eliminar cliente: ${err}`)
       })
+  }
+
+  useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_API_ENDPOINT}customers`)
+        .then(res=>{
+            setData(res.data)
+            setIsLoaded(false)  
+        })
+        .catch(err=>{
+            console.log("Error")
+            setData([])
+            setIsLoaded(false)
+        })
     },[])
 
   const firstColumns = [
@@ -56,9 +74,15 @@ const DataTables = () => {
     { title: 'Teléfono', data: 'phone' },
     {title: '',
       data: null,
-      render: () => <Button text="Ver Más..." className="on-click-event" />,}
+      render: () => 
+      <>
+        <Button className="see-more-customer" icon='fa-eye' title="Ver Más"/>
+        <Button className="edit-customer"     icon='fa-user-edit' title="Editar"/>  
+        <Button className="delete-customer"   icon='fa-trash' title="Eliminar"/>       
+      </>
+    }
   ];
-  //EN ESTA TABLA COMUN VER DE APLICAR FILTRO PARA CALIFICACION Y VER DE TRAER LOS DATOS CON LOADING, Y LA PAGINACION CORRESPONDIENTE
+  //EN ESTA TABLA COMUN VER DE APLICAR FILTRO PARA CALIFICACION, Y LA PAGINACION CORRESPONDIENTE
   const SpanishTextOption = {
     decimal: '',
     emptyTable: 'Información No Disponible',
@@ -98,6 +122,7 @@ const DataTables = () => {
 
 
   return (
+    <>
       <Row>
         <Col xs={12}>
           <Box>
@@ -112,15 +137,32 @@ const DataTables = () => {
                 language:SpanishTextOption
               }}
               onClickEvents={{
-                onClickEvent: (data, rowIdx, rowData) => {
-                  debugger;
-                  alert(data.name)
+                seeMoreCustomer: (data,rowIdx,rowData) => {
+                  alert(`Ver más de: ${rowIdx.name}`)
+                  console.log(rowIdx.name)
+                  console.log(rowData)
+                },
+                editCustomer: (data,rowIdx,rowData) => {
+                  alert(`Editar: ${rowData.name}`)
+                },
+                deleteCustomer: (data,rowIdx,rowData) => {
+                  setShowModal(true);
+                  setCustomerInfo(data)      
                 },
               }}
             />
           </Box>
         </Col>
       </Row>
+      <AcceptDeclineModal 
+        title="Atención"
+        message={`¿Está seguro que desea eliminar al / a la cliente: ${customerInfo.code} - ${customerInfo.name}`}
+        show={showModal}
+        setShow={setShowModal}
+        acceptFunction={deleteCustomer}
+        data={customerInfo}
+      />
+    </>
   );
 };
 

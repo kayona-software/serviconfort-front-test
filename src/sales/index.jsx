@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Content, Row, Col, Box, Button } from 'adminlte-2-react';
 
-class Sales extends Component {
-    state = {}
-  
-    render() {
-      return (<Content title="Ventas" subTitle="Getting started with adminlte-2-react" browserTitle="Ventas">
+export default function Sales() {
+
+
+        return (<Content title="Ventas" subTitle="Getting started with adminlte-2-react" browserTitle="Ventas">
         <Row>
           <Col xs={6}>
             <Box title="My first box" type="primary" closable collapsable footer={<Button type="danger" text="Danger Button" />}>
@@ -19,7 +18,4 @@ class Sales extends Component {
           </Col>
         </Row>
       </Content>);
-    }
-  }
-  
-  export default Sales; 
+}

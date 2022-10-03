@@ -1,0 +1,9 @@
+.modalAcceptButton {
+    position: relative;
+    margin-left: 10px;
+}
+
+.modalDeclineButton {
+    position: relative;
+    margin-left: 10px;    
+}

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Row, Col, Box, Button, Inputs } from 'adminlte-2-react';
+import SelectCity from '../utils/SelectCity';
+import SelectDNI from '../utils/SelectDNI';
 import '../Styles.css';
 
-const {
-  Text, Select, Select2
-} = Inputs;
+
+const { Text } = Inputs;
 
 //          <Text name="exampleInputPassword1" label="File input" labelPosition="above" inputType="file" help="Example block-level help text here." />
 //          <Text type="success" labelPosition="above" label="Input with success" labelIcon="fas-check" placeholder="Enter ..." help="Help block with success" />
@@ -33,16 +34,7 @@ const NewCustomerForm = () =>
         <Box type="primary" title="Datos generales" border>
           <Text name="name" placeholder="Ingrese Nombre y Apellido" label="Nombre y Apellido" labelPosition="above" />
           <Text name="dni" placeholder="Ingrese N° de DNI" label="DNI" labelPosition="above" inputType="number" />
-          <Select
-            label="Tipo de DNI"
-            labelPosition="above"
-            options={[
-              { text: 'DNI', value: '1' },
-              { text: 'Pasaporte', value: '2' },
-              { text: 'Libreta', value: '3' },
-              { text: 'Otro', value: '4' },
-            ]} 
-          />
+          <SelectDNI />
         </Box>
         <Box type="warning" title="Adjuntos" border>
           <Text name="Fotos" label="Fotos" labelPosition="above" inputType="file" help="Fotos de la ubicación
@@ -53,15 +45,7 @@ const NewCustomerForm = () =>
         <Box type="success" title="Información de Contacto" border>
             <Text name="phone" placeholder="Número de Teléfono" label="Teléfono" labelPosition="above" inputType="phone"/>
             <Text name="address" placeholder="Dirección" label="Dirección" labelPosition="above" inputType="text" />
-            <Select2
-              label="Localidad"
-              labelPosition="above"
-              options={[
-                { text: 'Puerto Rico', value: '1' },
-                { text: 'Montecarlo', value: '2' },
-                { text: 'Garuhape', value: '3' },
-                { text: 'Otro', value: '4' },
-              ]}/>
+            <SelectCity />
             <Text label="Referencia" inputType="textarea" rows={5} labelPosition="above" placeholder="Descripción de la ubicación..." />  
         </Box>
       </Col>

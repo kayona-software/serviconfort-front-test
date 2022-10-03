@@ -1,10 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import { Row, Box, Col, Button, DataTable,LoadingSpinner } from 'adminlte-2-react';
 import axios from 'axios';
+import AcceptDeclineModal from '../utils/AcceptDeclineModal';
 
 const UserTable = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoaded] = useState([true]);
+
+  const deleteUser = (id)=>{
+    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}users/${id}`)
+      .then(res=>{
+        setShowModal(false)
+        console.log(res) //poner un alert bootstrap 
+      })
+      .catch(err=>{
+        console.log(`Error al eliminar usuario: ${err}`)
+      })
+  }
+
   useEffect(()=>{
   axios.get(`${process.env.REACT_APP_API_ENDPOINT}users`)
       .then(res=>{
@@ -12,7 +27,7 @@ const UserTable = () => {
           setIsLoaded(false)  
       })
       .catch(err=>{
-          console.log("Error")
+          console.log(`Error al buscar datos: ${err}`)
           setData([])
           setIsLoaded(false)
       })
@@ -37,7 +52,13 @@ const UserTable = () => {
     },
     {title: '',
       data: null,
-      render: () => <Button text="Ver Más..." className="on-click-event" />,}
+      render: () => 
+      <>
+        <Button className="see-more-user" icon='fa-eye'       title="Ver Más" />
+        <Button className="edit-user"     icon='fa-user-edit' title="Editar"/>  
+        <Button className="delete-user"   icon='fa-trash'     title="Eliminar"/>       
+      </>,
+    }
   ];
 
   const SpanishTextOption = {
@@ -79,11 +100,12 @@ const UserTable = () => {
   
 
   return (
+    <>
       <Row>
         <Col xs={12}>
           <Box>
             {
-                isLoading ? <LoadingSpinner /> : <></>
+                isLoading && <LoadingSpinner /> 
             }    
             <DataTable
               columns={firstColumns}
@@ -93,15 +115,30 @@ const UserTable = () => {
                 language:SpanishTextOption
               }}
               onClickEvents={{
-                onClickEvent: (data, rowIdx, rowData) => {
-                  debugger;
-                  alert(data.name)
+                seeMoreUser: (data, rowIdx, rowData) => {
+                  alert(`Ver más de: ${data.username}`)
+                },
+                editUser: (data, rowIdx, rowData) => {
+                  alert(`Editar: ${data.username}`)
+                },
+                deleteUser: (data, rowIdx, rowData) => {
+                  setShowModal(true);
+                  setUserInfo(data)                    
                 },
               }}
             />
           </Box>
         </Col>
       </Row>
+      <AcceptDeclineModal 
+        title="Atención"
+        message={`Está seguro que desea eliminar al usuario ${userInfo.username}`}
+        show={showModal}
+        setShow={setShowModal}
+        acceptFunction={deleteUser}
+        data={userInfo}
+      />
+    </>
   );
 };
 
